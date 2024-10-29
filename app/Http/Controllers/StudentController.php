@@ -12,11 +12,10 @@ class StudentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function create()
     {
-        // Fetch all students from the database
-        $students = Student::all();
-        return view('backend.students.index', compact('students')); // View for listing students
+        $courses = Course::all(); // Retrieve all courses to pass to the view
+        return view('backend.enrollments.create', compact('courses'));
     }
 
     /**

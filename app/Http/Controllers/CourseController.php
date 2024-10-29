@@ -1,14 +1,16 @@
 <?php
 
-// app/Http/Controllers/CourseController.php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Course;
 
+
 class CourseController extends Controller
 {
-    // Show form for creating a new course
+
+ // Show form for creating a new course
     public function create()
     {
         return view('backend.courses.create');
@@ -32,11 +34,12 @@ class CourseController extends Controller
         return redirect()->route('courses.index')->with('success', 'Course created successfully.');
     }
 
+
     // Display all courses (list)
     public function index()
     {
-        // Use paginate() instead of all() to enable pagination
-        $courses = Course::paginate(10); // 10 courses per page
+        // Use paginate() instead of all()
+        $courses = Course::paginate(10);
         return view('backend.courses.index', compact('courses'));
     }
 
@@ -49,7 +52,9 @@ class CourseController extends Controller
 
     // Update an existing course
     public function update(Request $request, $id)
+
     {
+        //use the Course model to be able add information
         $course = Course::findOrFail($id);
 
         $request->validate([
@@ -64,7 +69,7 @@ class CourseController extends Controller
             'credit_hours' => $request->credit_hours,
         ]);
 
-        return redirect()->route('backend.courses.index')->with('success', 'Course updated successfully.');
+        return redirect()->route('courses.index')->with('success', 'Course updated successfully.');
     }
 
     // Delete an existing course
@@ -73,6 +78,6 @@ class CourseController extends Controller
         $course = Course::findOrFail($id);
         $course->delete();
 
-        return redirect()->route('backend.courses.index')->with('success', 'Course deleted successfully.');
+        return redirect()->route('courses.index')->with('success', 'Course deleted successfully.');
     }
 }

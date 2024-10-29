@@ -60,5 +60,25 @@
                 </ul>
             </div>
         </li>
+
+        {{-- enrollment --}}
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#enrollment-menu" aria-expanded="false"
+                aria-controls="enrollment-menu">
+                <i class="fab fa-trello menu-icon"></i>
+                <span class="menu-title">Enrollment</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="enrollment-menu">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('enrollments.create') }}">Enroll</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">View Enrolled Students</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
     </ul>
 </nav>
