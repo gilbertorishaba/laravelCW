@@ -27,10 +27,18 @@ Route::get('/', function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 
-//student routes
-    Route::get('/create-student', [StudentController::class, 'create'])->name('students.create');
-    Route::post('/store-student',[StudentController::class,'store'])->name('students.store');
 
+//student routes
+    Route::get('/student/create', [StudentController::class, 'create'])->name('students.create');
+    Route::post('/store-student',[StudentController::class,'store'])->name('students.store');
+    Route::get('/students', [StudentController::class, 'index'])->name('students.index');
+    Route::get('/students/{id}', [StudentController::class, 'show'])->name('students.show');
+    Route::get('/students/{id}/edit', [StudentController::class, 'edit'])->name('students.edit');
+
+    // Route::put('/{id}/update', [StudentController::class,'update'])->name('students.update');
+    Route::put('/students/{id}', [StudentController::class, 'update'])->name('students.update');
+    Route::delete('/students/{id}', [StudentController::class, 'destroy'])->name('students.destroy');
+    // Route::resource('students', StudentController::class);
 
     // course routes
     Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
@@ -39,7 +47,6 @@ Route::get('/', function () {
     Route::get('/courses/{id}/edit', [CourseController::class, 'edit'])->name('courses.edit');
     Route::put('/courses/{id}', [CourseController::class, 'update'])->name('courses.update');
     Route::delete('/courses/{id}', [CourseController::class, 'destroy'])->name('courses.destroy');
-
 
 
     // Enrollment Controllers

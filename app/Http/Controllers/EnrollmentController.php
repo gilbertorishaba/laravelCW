@@ -20,16 +20,21 @@ class EnrollmentController extends Controller
     // Form for creating a new enrollment
     public function create()
     {
-        $courses = Course::all(); // Retrieve all courses
-        return view('backend.enrollments.create', compact('courses'));
+        $courses = Course::all(); // Fetching the courses from the database
+        $userPoints = auth()->user()->points; // Assuming user points are stored in a user model
+        $badges = auth()->user()->badges; // Assuming badges are stored or calculated in user model
+
+        return view('backend.enrollments.create', compact('courses', 'userPoints', 'badges'));
     }
+
+
 
     // Store a newly created enrollment in storage
     public function store(Request $request)
     {
         $request->validate([
             'student_name' => 'required|string|max:255',
-            'course_name' => 'required|string|max:255',
+            'course_enrolled' => 'required|exists:courses,id',  // Ensuring the selected course exists in the database
             'enrollment_date' => 'required|date',
             'status' => 'required|in:active,inactive',
         ]);
@@ -50,8 +55,8 @@ class EnrollmentController extends Controller
     {
         $request->validate([
             'student_name' => 'required|string|max:255',
-            'course_name' => 'required|string|max:255',
-            'enrollment_date' => 'required|date',
+            'course_enrolled' => 'required|exists:courses,id',
+            'enrollment_date' => 'required|date|before_or_equal:today',
             'status' => 'required|in:active,inactive',
         ]);
 

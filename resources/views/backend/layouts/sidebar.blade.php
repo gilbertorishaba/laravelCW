@@ -35,7 +35,7 @@
                         <a class="nav-link" href="{{ route('students.create') }}">Add Student</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">View Students</a>
+                        <a class="nav-link" href="{{ route('students.index') }}">View Students</a>
                     </li>
                 </ul>
             </div>
@@ -55,7 +55,7 @@
                         <a class="nav-link" href="{{ route('courses.create') }}">Add Course</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">View Course</a>
+                        <a class="nav-link" href="{{ route('courses.index') }}">View Course</a>
                     </li>
                 </ul>
             </div>
@@ -75,7 +75,7 @@
                         <a class="nav-link" href="{{ route('enrollments.create') }}">Enroll</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">View Enrolled Students</a>
+                        <a class="nav-link" href="{{ route('enrollments.index') }}">View Enrolled Students</a>
                     </li>
                 </ul>
             </div>

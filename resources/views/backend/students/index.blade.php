@@ -50,74 +50,6 @@
             color: #007bff;
             /* Blue color for page title */
         }
-
-
-        /* existing styles */
-
-        /* styling the notification */
-        .star-notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: rgba(255, 255, 255, 0.9);
-            border: 1px solid #28a745;
-            color: #28a745;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            animation: pop 1s ease-in-out, rotate 2s linear infinite;
-            display: none;
-            /* Start hidden */
-        }
-
-        .star-notification.show {
-            display: block;
-            /* Show when it has the show class */
-        }
-
-        @keyframes pop {
-            0% {
-                transform: scale(0);
-                opacity: 0;
-            }
-
-            50% {
-                transform: scale(1.1);
-                opacity: 1;
-            }
-
-            100% {
-                transform: scale(1);
-            }
-        }
-
-        @keyframes rotate {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(-360deg);
-            }
-        }
-
-
-
-        @keyframes rotate {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(-360deg);
-            }
-        }
-
-        /* Make the notification visible */
-        .show {
-            display: block;
-            /* Show when it has the show class */
-        }
     </style>
 
     <div class="container-scroller">
@@ -249,8 +181,8 @@
                         </div>
                         <ul class="chat-list">
                             <li class="list active">
-                                <div class="profile"><img src="{{ asset('images/faces/face1.jpg') }}"
-                                        alt="image"><span class="online"></span></div>
+                                <div class="profile"><img src="images/faces/face1.jpg" alt="image"><span
+                                        class="online"></span></div>
                                 <div class="info">
                                     <p>Thomas Douglas</p>
                                     <p>Available</p>
@@ -270,8 +202,8 @@
                                 <small class="text-muted my-auto">23 min</small>
                             </li>
                             <li class="list">
-                                <div class="profile"><img src="{{ asset('images/faces/face3.jpg') }}"
-                                        alt="image"><span class="online"></span></div>
+                                <div class="profile"><img src="images/faces/face3.jpg" alt="image"><span
+                                        class="online"></span></div>
                                 <div class="info">
                                     <p>Daniel Russell</p>
                                     <p>Available</p>
@@ -279,8 +211,8 @@
                                 <small class="text-muted my-auto">14 min</small>
                             </li>
                             <li class="list">
-                                <div class="profile"><img src="{{ asset('images/faces/face4.jpg') }}"
-                                        alt="image"><span class="offline"></span></div>
+                                <div class="profile"><img src="images/faces/face4.jpg" alt="image"><span
+                                        class="offline"></span></div>
                                 <div class="info">
                                     <p>James Richardson</p>
                                     <p>Away</p>
@@ -288,8 +220,8 @@
                                 <small class="text-muted my-auto">2 min</small>
                             </li>
                             <li class="list">
-                                <div class="profile"><img src="{{ asset('images/faces/face5.jpg') }}"
-                                        alt="image"><span class="online"></span></div>
+                                <div class="profile"><img src="images/faces/face5.jpg" alt="image"><span
+                                        class="online"></span></div>
                                 <div class="info">
                                     <p>Madeline Kennedy</p>
                                     <p>Available</p>
@@ -297,7 +229,7 @@
                                 <small class="text-muted my-auto">5 min</small>
                             </li>
                             <li class="list">
-                                <div class="profile"><img src="{{ 'images/faces/face6.jpg' }}" alt="image"><span
+                                <div class="profile"><img src="images/faces/face6.jpg" alt="image"><span
                                         class="online"></span></div>
                                 <div class="info">
                                     <p>Sarah Graves</p>
@@ -322,79 +254,52 @@
                         </h3>
                     </div>
 
-                    <div class="star-notification" id="starNotification">
-                        @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-                    </div>
-
                     <div class="row">
                         <div class="col-md-12 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">Student Registration form</h4>
-                                    <p class="card-description">
+                                    <h4 class="card-title">Registerred Students</h4>
+                                    {{-- <p class="card-description">
                                         Please fill in this form
-                                    </p>
-                                    {{-- <form class="forms-sample" action="{{ route('student.store') }}" method="POST"> --}}
-                                    <form class="forms-sample" action="{{ route('students.store') }}" method="POST">
-                                        @csrf
-                                        {{-- bootstrap green alert color --}}
-                                        @if (session('success'))
-                                            <div class="alert alert-success">
-                                                {{ session('success') }}
+                                    </p> --}}
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="table-responsive">
+                                                <table id="order-listing" class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Student Name</th>
+                                                            <th>Email </th>
+                                                            <th>Course Enrolled</th>
+                                                            <th>Date of Birth</th>
+                                                            <th>Phone</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {{-- use of for each loop --}}
+                                                        @foreach ($students as $student)
+                                                            <tr>
+                                                                <td>{{ $student->name }}</td>
+                                                                <td>{{ $student->email }}</td>
+                                                                <td>{{ $student->course_enrolled }}</td>
+                                                                <td>{{ $student->dob }}</td>
+                                                                <td>{{ $student->phone }}</td>
+
+                                                                <td>
+                                                                    <a href="{{ route('students.edit', $student->id) }}"
+                                                                        class="btn btn-outline-primary">View</a>
+                                                                    <a href="{{ route('students.edit', $student->id) }}"
+                                                                        class="btn btn-outline-edit">Edit</a>
+                                                                    <a href="{{ route('students.destroy', $student->id) }}"
+                                                                        class="btn btn-outline-warning">Delete</a>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
                                             </div>
-                                        @endif
-                                        <div class="form-group">
-                                            <label for="studentInputName">Student Name</label>
-                                            <input type="text" class="form-control" id="studentInputName"
-                                                name="name" placeholder="Student Name" required>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="studentInputEmail">Email</label>
-                                            <input type="email" class="form-control" id="studentInputEmail"
-                                                name="email" placeholder="Email" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="studentInputcourse">Course Enrolled</label>
-                                            <select class="form-control" name="course_enrolled" id="studentInputcourse"
-                                                required>
-                                                <option value="">Select a Course</option>
-                                                <option value="bbc">Business Computing</option>
-                                                <option value="boim">Bachelor of Office Management</option>
-                                                <option value="computer_science">Computer Science</option>
-                                                <option value="software_engineering">Software Engineering</option>
-                                                <option value="bist">Bachelor of Information Systems and Technology
-                                                </option>
-                                                <option value="law">Bachelor of Laws</option>
-                                                <option value="bcom">Bachelor of Commerce</option>
-                                                <option value="blis">Bachelor of Library and Information Sciences
-                                                </option>
-                                            </select>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="studentInputDob">Date of Birth</label>
-                                            <input type="date" class="form-control" id="studentInputDob"
-                                                name="dob" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="studentInputPhone">Phone Number</label>
-                                            <input type="text" class="form-control" id="studentInputPhone"
-                                                name="phone" required>
-                                        </div>
-
-                                        <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                                        <button type="button" class="btn btn-light"
-                                            onclick="window.location='{{ route('students.create') }}'">Cancel</button>
-                                    </form>
-
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -418,24 +323,4 @@
     <!-- page-body-wrapper ends -->
     </div>
     <!-- container-scroller -->
-
-    {{-- designing the notification --}}
-    <script>
-        < script >
-            document.addEventListener("DOMContentLoaded", function() {
-                const notification = document.getElementById('starNotification');
-
-                // Add the 'show' class to display the notification
-                notification.classList.add('show');
-
-                // Hide the notification after a few seconds
-                setTimeout(() => {
-                    notification.classList.remove('show');
-                }, 5000); // Adjust the timeout duration as needed
-            });
-    </script>
-
-    </script>
-
-
 @endsection

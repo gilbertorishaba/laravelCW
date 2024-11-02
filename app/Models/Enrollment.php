@@ -12,7 +12,7 @@ class Enrollment extends Model
 
     protected $fillable = [
         'student_name',
-        'course_name',
+        'course_enrolled',
         'enrollment_date',
         'status',
     ];
