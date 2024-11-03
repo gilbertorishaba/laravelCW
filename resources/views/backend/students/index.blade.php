@@ -268,38 +268,39 @@
                                                 <table id="order-listing" class="table">
                                                     <thead>
                                                         <tr>
+                                                            <th>Profile Image</th>
                                                             <th>Student Name</th>
-                                                            <th>Email </th>
+                                                            <th>Email</th>
                                                             <th>Course Enrolled</th>
                                                             <th>Date of Birth</th>
                                                             <th>Phone</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        {{-- use of for each loop --}}
                                                         @foreach ($students as $student)
                                                             <tr>
+                                                                <td>
+                                                                    @if ($student->image)
+                                                                        <img src="{{ asset('storage/student_images/' . $student->image) }}"
+                                                                            alt="Student Image" width="100">
+                                                                    @else
+                                                                        <p>No image available</p>
+                                                                    @endif
+                                                                </td>
                                                                 <td>{{ $student->name }}</td>
                                                                 <td>{{ $student->email }}</td>
                                                                 <td>{{ $student->course_enrolled }}</td>
                                                                 <td>{{ $student->dob }}</td>
                                                                 <td>{{ $student->phone }}</td>
-
-                                                                <td>
-                                                                    <a href="{{ route('students.edit', $student->id) }}"
-                                                                        class="btn btn-outline-primary">View</a>
-                                                                    <a href="{{ route('students.edit', $student->id) }}"
-                                                                        class="btn btn-outline-edit">Edit</a>
-                                                                    <a href="{{ route('students.destroy', $student->id) }}"
-                                                                        class="btn btn-outline-warning">Delete</a>
-                                                                </td>
                                                             </tr>
                                                         @endforeach
                                                     </tbody>
+
                                                 </table>
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
                         </div>

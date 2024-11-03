@@ -343,7 +343,9 @@
                                         Please fill in this form
                                     </p>
                                     {{-- <form class="forms-sample" action="{{ route('student.store') }}" method="POST"> --}}
-                                    <form class="forms-sample" action="{{ route('students.store') }}" method="POST">
+                                    {{-- ////to allow file uploads --}}
+                                    <form class="forms-sample" action="{{ route('students.store') }}"
+                                        method="POST"enctype="multipart/form-data">
                                         @csrf
                                         {{-- bootstrap green alert color --}}
                                         @if (session('success'))
@@ -388,6 +390,12 @@
                                             <label for="studentInputPhone">Phone Number</label>
                                             <input type="text" class="form-control" id="studentInputPhone"
                                                 name="phone" required>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="profile_image_url">Profile Image:</label>
+                                            <input type="file" class="form-control" name="profile_image_url"
+                                                accept="image/*">
                                         </div>
 
                                         <button type="submit" class="btn btn-primary mr-2">Submit</button>

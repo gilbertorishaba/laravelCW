@@ -1,4 +1,4 @@
-@extends('backend.layouts.main')
+{{-- @extends('backend.layouts.main')
 @section('content')
     <style>
         /* Customizing the body background and form styles */
@@ -318,4 +318,63 @@
     <!-- page-body-wrapper ends -->
     </div>
     <!-- container-scroller -->
+@endsection --}}
+
+
+@extends('layouts.app')
+
+@section('content')
+    <div class="container">
+        <h2>Edit Student</h2>
+
+        <!-- Display validation errors -->
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        <!-- Edit Form -->
+        <form action="{{ route('students.update', $student->id) }}" method="POST">
+            @csrf
+            @method('PUT') <!-- Since update uses PUT/PATCH -->
+
+            <!-- Name Field -->
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" name="name" id="name" class="form-control"
+                    value="{{ old('name', $student->name) }}" required>
+            </div>
+
+            <!-- Email Field -->
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" class="form-control"
+                    value="{{ old('email', $student->email) }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="studentInputCourseEnrolled">Course Enrolled</label>
+                <input type="text" class="form-control" name="course_enrolled" value="{{ $student->course_enrolled }}">
+            </div>
+            <div class="form-group">
+                <label for="studentInputDob">Date Of Birth</label>
+                <input type="number" class="form-control" name="dob" value="{{ $student->dob }}">
+
+            </div>
+
+            <div class="form-group">
+                <label for="studentInputPhone">Phone</label>
+                <input type="number" class="form-control" name="phone" value="{{ $student->phone }}">
+
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary">Update Student</button>
+        </form>
+    </div>
 @endsection
