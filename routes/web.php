@@ -27,7 +27,7 @@ Route::get('/', function () {
     Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-
+});
 
 //student routes
     Route::get('/student/create', [StudentController::class, 'create'])->name('students.create');
@@ -57,6 +57,16 @@ Route::get('/', function () {
     Route::delete('/enrollments/{enrollment}', [EnrollmentController::class, 'destroy'])->name('enrollments.destroy');
 
     //Rport Controllers
+    // Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
+    // Route::get('/reports/create', [ReportController::class, 'create'])->name('reports.create');
+    // Route::post('/reports', [ReportController::class, 'store'])->name('reports.store');
+    // Route::get('/reports/{report}/edit', [ReportController::class, 'edit'])->name('reports.edit');
+    // Route::put('/reports/{report}', [ReportController::class, 'update'])->name('reports.update');
+    // Route::delete('/reports/{report}', [ReportController::class, 'destroy'])->name('reports.destroy');
+
+
+    //routes accessed by the
+        Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
     Route::get('/reports/create', [ReportController::class, 'create'])->name('reports.create');
     Route::post('/reports', [ReportController::class, 'store'])->name('reports.store');
@@ -64,16 +74,9 @@ Route::get('/', function () {
     Route::put('/reports/{report}', [ReportController::class, 'update'])->name('reports.update');
     Route::delete('/reports/{report}', [ReportController::class, 'destroy'])->name('reports.destroy');
 
-
-
-
-    //  Group controller
-        Route::group(['middleware' => ['auth', 'admin']], function () {
-        Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-
-        Route::resource('admin/courses', AdminCourseController::class);
     });
 
 
 
-});
+
+
