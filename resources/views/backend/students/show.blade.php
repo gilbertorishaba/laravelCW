@@ -1,54 +1,44 @@
 @extends('backend.layouts.main')
+
 @section('content')
     <style>
         /* Customizing the body background and form styles */
         body {
             background-color: white;
-            /* White background for the whole page */
         }
 
         .card {
             background-color: white;
             border: 1px solid #007bff;
-            /* Blue border around the form card */
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            /* Soft shadow for depth */
         }
 
         .card-title {
             color: #007bff;
-            /* Blue title color */
         }
 
         .btn-primary {
             background-color: #007bff;
-            /* Blue button */
             border-color: #007bff;
         }
 
         .btn-light {
             background-color: #f8f9fa;
-            /* Lighter background for the cancel button */
             color: #007bff;
-            /* Blue text for the cancel button */
         }
 
         .form-control {
             border: 1px solid #007bff;
-            /* Blue borders for input fields */
             background-color: #f0f9ff;
-            /* Light blue background for the input fields */
             color: #333;
         }
 
         .form-control:focus {
             box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-            /* Blue shadow on focus */
         }
 
         .page-title {
             color: #007bff;
-            /* Blue color for page title */
         }
     </style>
 
@@ -154,22 +144,6 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="events py-4 border-bottom px-3">
-                            <div class="wrapper d-flex mb-2">
-                                <i class="fa fa-times-circle text-primary mr-2"></i>
-                                <span>Feb 11 2018</span>
-                            </div>
-                            <p class="mb-0 font-weight-thin text-gray">Creating component page</p>
-                            <p class="text-gray mb-0">build a js based app</p>
-                        </div>
-                        <div class="events pt-4 px-3">
-                            <div class="wrapper d-flex mb-2">
-                                <i class="fa fa-times-circle text-primary mr-2"></i>
-                                <span>Feb 7 2018</span>
-                            </div>
-                            <p class="mb-0 font-weight-thin text-gray">Meeting with Alisa</p>
-                            <p class="text-gray mb-0 ">Call Sarah Graves</p>
-                        </div>
                     </div>
                     <!-- To do section tab ends -->
                     <div class="tab-pane fade" id="chats-section" role="tabpanel" aria-labelledby="chats-section">
@@ -219,50 +193,29 @@
                                 </div>
                                 <small class="text-muted my-auto">2 min</small>
                             </li>
-                            <li class="list">
-                                <div class="profile"><img src="images/faces/face5.jpg" alt="image"><span
-                                        class="online"></span></div>
-                                <div class="info">
-                                    <p>Madeline Kennedy</p>
-                                    <p>Available</p>
-                                </div>
-                                <small class="text-muted my-auto">5 min</small>
-                            </li>
-                            <li class="list">
-                                <div class="profile"><img src="images/faces/face6.jpg" alt="image"><span
-                                        class="online"></span></div>
-                                <div class="info">
-                                    <p>Sarah Graves</p>
-                                    <p>Available</p>
-                                </div>
-                                <small class="text-muted my-auto">47 min</small>
-                            </li>
                         </ul>
                     </div>
-                    <!-- chat tab ends -->
                 </div>
             </div>
-            <!-- partial -->
             <!-- partial:partials/_sidebar.html -->
             @include('backend.layouts.sidebar')
             <!-- partial -->
             <div class="main-panel">
                 <div class="content-wrapper">
                     <div class="page-header">
-                        <h3 class="page-title">
-                            Dashboard
-                        </h3>
+                        <h3 class="page-title">Dashboard</h3>
                     </div>
 
                     <div class="row">
                         <div class="col-md-12 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">Edit Students form</h4>
+                                    <h4 class="card-title">Edit Student Form</h4>
                                     <p class="card-description">
-                                        Please Edit in this form
+                                        Please edit the student's information in this form.
                                     </p>
-                                    <form class="forms-sample" action="" method="POST">
+                                    <form class="forms-sample" action="{{ route('students.update', $student->id) }}"
+                                        method="POST" enctype="multipart/form-data">
                                         @csrf
                                         @method('PUT')
                                         <div class="form-group">
@@ -270,57 +223,48 @@
                                             <input type="text" class="form-control" name="name"
                                                 placeholder="Student Name" value="{{ $student->name }}" readonly>
                                         </div>
+
                                         <div class="form-group">
-                                            <label for="studentInputEmail">Email</label>
-                                            <input type="text" class="form-control" name="email"
-                                                value="{{ $student->email }}">
+                                            <label for="studentInputEmail">Email address</label>
+                                            <input type="email" class="form-control" name="email"
+                                                placeholder="Email" value="{{ $student->email }}">
                                         </div>
+
                                         <div class="form-group">
-                                            <label for="studentInputAge">Course Enrolled </label>
-                                            <input type="number" class="form-control" name="course_enrolled"
+                                            <label for="courseEnrolled">Course Enrolled</label>
+                                            <input type="text" class="form-control" name="course_enrolled"
                                                 value="{{ $student->course_enrolled }}" readonly>
-
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="studentInputdob">Date of birth</label>
+                                            <label for="dob">Date of Birth</label>
                                             <input type="date" class="form-control" name="dob"
                                                 value="{{ $student->dob }}">
-
-                                        </div>
-
-
-                                        <div class="form-group">
-                                            <label for="studentInputAge">Phone </label>
-                                            <input type="number" class="form-control" name="course_enrolled"
-                                                value="{{ $student->course_enrolled }}">
-
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="profile_image">Profile Image:</label>
-                                            <input type="file" class="form-control" name="profile_image"
-                                                accept="image/*">
+                                            <label for="phone">Phone Number</label>
+                                            <input type="text" class="form-control" name="phone"
+                                                value="{{ $student->phone }}">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="image">Profile Image</label>
+                                            <input type="file" class="form-control" name="profile_image">
                                         </div>
 
                                         <button type="submit" class="btn btn-primary mr-2">Edit</button>
-                                        <button class="btn btn-light">Cancel</button>
+                                        <a href="{{ route('students.index') }}" class="btn btn-light">Cancel</a>
+                                        <a href="{{ route('students.destroy') }}" class="btn btn-light">Delete</a>
                                     </form>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
                 <!-- content-wrapper ends -->
-                <!-- partial:partials/_footer.html -->
                 @include('backend.layouts.footer')
-                <!-- partial -->
             </div>
         </div>
-        <!-- main-panel ends -->
     </div>
-    <!-- page-body-wrapper ends -->
-    </div>
-    <!-- container-scroller -->
 @endsection

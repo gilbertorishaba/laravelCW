@@ -281,8 +281,8 @@
                                                             <tr>
                                                                 <td>
                                                                     @if ($student->image)
-                                                                        <img src="{{ asset('storage/student_images/' . $student->image) }}"
-                                                                            alt="Student Image" width="100">
+                                                                        <img src="{{ asset('images/faces/face1.jpg') }}"
+                                                                            alt="Image from public directory">
                                                                     @else
                                                                         <p>No image available</p>
                                                                     @endif

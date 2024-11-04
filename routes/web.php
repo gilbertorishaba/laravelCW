@@ -5,6 +5,7 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\EnrollmentController;
+use App\Http\Controllers\ReportController;
 
 
 /*
@@ -55,18 +56,21 @@ Route::get('/', function () {
     Route::put('/enrollments/{enrollment}', [EnrollmentController::class, 'update'])->name('enrollments.update');
     Route::delete('/enrollments/{enrollment}', [EnrollmentController::class, 'destroy'])->name('enrollments.destroy');
 
+    //Rport Controllers
+    Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
+    Route::get('/reports/create', [ReportController::class, 'create'])->name('reports.create');
+    Route::post('/reports', [ReportController::class, 'store'])->name('reports.store');
+    Route::get('/reports/{report}/edit', [ReportController::class, 'edit'])->name('reports.edit');
+    Route::put('/reports/{report}', [ReportController::class, 'update'])->name('reports.update');
+    Route::delete('/reports/{report}', [ReportController::class, 'destroy'])->name('reports.destroy');
 
 
 
 
     //  Group controller
-    // Route::resource('courses', CourseController::class);
-
-
         Route::group(['middleware' => ['auth', 'admin']], function () {
         Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
-        // Admin can manage courses//  Group controller
         Route::resource('admin/courses', AdminCourseController::class);
     });
 

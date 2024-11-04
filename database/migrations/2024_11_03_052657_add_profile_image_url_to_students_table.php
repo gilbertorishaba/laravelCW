@@ -14,7 +14,10 @@ class AddProfileImageUrlToStudentsTable extends Migration
     public function up()
     {
         Schema::table('students', function (Blueprint $table) {
-            $table->string('profile_image_url')->nullable(); // This column will store the URL
+            // Checking if the column exists before adding it
+            if (!Schema::hasColumn('students', 'profile_image_url')) {
+                $table->string('profile_image_url')->nullable(); // Column to store image URL
+            }
         });
     }
 
@@ -26,7 +29,10 @@ class AddProfileImageUrlToStudentsTable extends Migration
     public function down()
     {
         Schema::table('students', function (Blueprint $table) {
-            $table->dropColumn('profile_image_url');
+            // Drop the column if it exists
+            if (Schema::hasColumn('students', 'profile_image_url')) {
+                $table->dropColumn('profile_image_url');
+            }
         });
     }
 }

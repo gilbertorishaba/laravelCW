@@ -50,6 +50,74 @@
             color: #007bff;
             /* Blue color for page title */
         }
+
+
+        /* existing styles */
+
+        /* styling the notification */
+        .star-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border: 1px solid #28a745;
+            color: #28a745;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            animation: pop 1s ease-in-out, rotate 2s linear infinite;
+            display: none;
+            /* Start hidden */
+        }
+
+        .star-notification.show {
+            display: block;
+            /* Show when it has the show class */
+        }
+
+        @keyframes pop {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(-360deg);
+            }
+        }
+
+
+
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(-360deg);
+            }
+        }
+
+        /* Make the notification visible */
+        .show {
+            display: block;
+            /* Show when it has the show class */
+        }
     </style>
 
     <div class="container-scroller">
@@ -181,8 +249,8 @@
                         </div>
                         <ul class="chat-list">
                             <li class="list active">
-                                <div class="profile"><img src="images/faces/face1.jpg" alt="image"><span
-                                        class="online"></span></div>
+                                <div class="profile"><img src="{{ asset('images/faces/face1.jpg') }}"
+                                        alt="image"><span class="online"></span></div>
                                 <div class="info">
                                     <p>Thomas Douglas</p>
                                     <p>Available</p>
@@ -190,8 +258,8 @@
                                 <small class="text-muted my-auto">19 min</small>
                             </li>
                             <li class="list">
-                                <div class="profile"><img src="images/faces/face2.jpg" alt="image"><span
-                                        class="offline"></span></div>
+                                <div class="profile"><img src="{{ asset('images/faces/face2.jpg') }}"
+                                        alt="image"><span class="offline"></span></div>
                                 <div class="info">
                                     <div class="wrapper d-flex">
                                         <p>Catherine</p>
@@ -202,8 +270,8 @@
                                 <small class="text-muted my-auto">23 min</small>
                             </li>
                             <li class="list">
-                                <div class="profile"><img src="images/faces/face3.jpg" alt="image"><span
-                                        class="online"></span></div>
+                                <div class="profile"><img src="{{ asset('images/faces/face3.jpg') }}"
+                                        alt="image"><span class="online"></span></div>
                                 <div class="info">
                                     <p>Daniel Russell</p>
                                     <p>Available</p>
@@ -211,8 +279,8 @@
                                 <small class="text-muted my-auto">14 min</small>
                             </li>
                             <li class="list">
-                                <div class="profile"><img src="images/faces/face4.jpg" alt="image"><span
-                                        class="offline"></span></div>
+                                <div class="profile"><img src="{{ asset('images/faces/face4.jpg') }}"
+                                        alt="image"><span class="offline"></span></div>
                                 <div class="info">
                                     <p>James Richardson</p>
                                     <p>Away</p>
@@ -220,8 +288,8 @@
                                 <small class="text-muted my-auto">2 min</small>
                             </li>
                             <li class="list">
-                                <div class="profile"><img src="images/faces/face5.jpg" alt="image"><span
-                                        class="online"></span></div>
+                                <div class="profile"><img src="{{ asset('images/faces/face5.jpg') }}"
+                                        alt="image"><span class="online"></span></div>
                                 <div class="info">
                                     <p>Madeline Kennedy</p>
                                     <p>Available</p>
@@ -229,7 +297,7 @@
                                 <small class="text-muted my-auto">5 min</small>
                             </li>
                             <li class="list">
-                                <div class="profile"><img src="images/faces/face6.jpg" alt="image"><span
+                                <div class="profile"><img src="{{ 'images/faces/face6.jpg' }}" alt="image"><span
                                         class="online"></span></div>
                                 <div class="info">
                                     <p>Sarah Graves</p>
@@ -254,68 +322,67 @@
                         </h3>
                     </div>
 
-                    <div class="row">
-                        <div class="col-md-12 grid-margin stretch-card">
-                            <div class="card">
-                                <div class="container">
-                                    <h2>Edit Student</h2>
+                    <div class="star-notification" id="starNotification">
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                    </div>
 
-                                    <!-- Display validation errors -->
-                                    @if ($errors->any())
-                                        <div class="alert alert-danger">
-                                            <ul>
-                                                @foreach ($errors->all() as $error)
-                                                    <li>{{ $error }}</li>
-                                                @endforeach
-                                            </ul>
-                                        </div>
-                                    @endif
+                    <div class="container">
 
-                                    <!-- Edit Form -->
-                                    <form action="{{ route('students.update', $student->id) }}" method="POST">
-                                        @csrf
-                                        @method('PUT') <!-- Since update uses PUT/PATCH -->
-
-                                        <!-- Name Field -->
-                                        <div class="form-group">
-                                            <label for="name">Name</label>
-                                            <input type="text" name="name" id="name" class="form-control"
-                                                value="{{ old('name', $student->name) }}" required>
-                                        </div>
-
-                                        <!-- Email Field -->
-                                        <div class="form-group">
-                                            <label for="email">Email</label>
-                                            <input type="email" name="email" id="email" class="form-control"
-                                                value="{{ old('email', $student->email) }}" required>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="studentInputCourseEnrolled">Course Enrolled</label>
-                                            <input type="text" class="form-control" name="course_enrolled"
-                                                value="{{ $student->course_enrolled }}">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="studentInputDob">Date Of Birth</label>
-                                            <input type="number" class="form-control" name="dob"
-                                                value="{{ $student->dob }}">
-
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="studentInputPhone">Phone</label>
-                                            <input type="number" class="form-control" name="phone"
-                                                value="{{ $student->phone }}">
-
-                                        </div>
-
-                                        <!-- Submit Button -->
-                                        <button type="submit" class="btn btn-primary">Update Student</button>
-                                    </form>
-                                </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h1>Create New Report</h1>
+                            </div>
+                            <div class="card-body">
+                                <form action="{{ route('reports.store') }}" method="POST" id="reportForm">
+                                    @csrf
+                                    <div class="form-group">
+                                        <label for="report_type">Report Type</label>
+                                        <input type="text" name="report_type" id="report_type"
+                                            class="form-control @error('report_type') is-invalid @enderror" required>
+                                        @error('report_type')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="report_title">Report Title</label>
+                                        <input type="text" name="report_title" id="report_title"
+                                            class="form-control @error('report_title') is-invalid @enderror" required>
+                                        @error('report_title')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="studentInputcourse">Course </label>
+                                        <select class="form-control" name="course_id" id="studentInputcourse" required>
+                                            <option value="">Select a Course</option>
+                                            @foreach ($courses as $course)
+                                                <option value="{{ $course->id }}">{{ $course->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="generated_by">Generated by</label>
+                                        <textarea name="description" id="generated_by" class="form-control @error('generated_by') is-invalid @enderror"
+                                            rows="4"></textarea>
+                                        @error('generated_by')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-block" id="submitBtn">
+                                        <span id="submitText">Generate Report</span>
+                                        <span id="loadingText" class="d-none">Generating...</span>
+                                    </button>
+                                </form>
                             </div>
                         </div>
-
                     </div>
 
 
@@ -335,4 +402,24 @@
     <!-- page-body-wrapper ends -->
     </div>
     <!-- container-scroller -->
+
+    {{-- designing the notification --}}
+    <script>
+        < script >
+            document.addEventListener("DOMContentLoaded", function() {
+                const notification = document.getElementById('starNotification');
+
+                // Add the 'show' class to display the notification
+                notification.classList.add('show');
+
+                // Hide the notification after a few seconds
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 5000); // Adjust the timeout duration as needed
+            });
+    </script>
+
+    </script>
+
+
 @endsection

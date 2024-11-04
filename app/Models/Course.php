@@ -11,8 +11,7 @@ class Course extends Model
 
     protected $fillable = [
         'course_name',
-
-        'description',
+         'description',
         'credit_hours',
     ];
 }

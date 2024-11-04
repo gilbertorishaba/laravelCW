@@ -15,6 +15,10 @@ class CreateReportsTable extends Migration
     {
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
+            $table->string('report_type');
+            $table->timestamp('generated_at'); // Changed to timestamp
+            $table->string('generated_by');
+            $table->foreignId('course_id')->constrained()->onDelete('cascade'); // Adding the foreign key
             $table->timestamps();
         });
     }
