@@ -106,11 +106,11 @@
             <div class="main-panel">
                 <div class="content-wrapper">
                     <!-- Page Header -->
-                    {{-- <div class="page-header">
+                    <div class="page-header">
                         <h3 class="page-title">Dashboard</h3>
-                    </div> --}}
+                    </div>
 
-                    {{-- <!-- Statistics Section -->
+                    <!-- Statistics Section -->
                     <div class="row grid-margin">
                         <div class="col-12">
                             <div class="card card-statistics">
@@ -136,10 +136,10 @@
                                 </div>
                             </div>
                         </div>
-                    </div> --}}
+                    </div>
 
                     <!-- Charts Section -->
-                    {{-- <div class="row">
+                    <div class="row">
                         <div class="col-md-6 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
@@ -158,7 +158,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div> --}}
+                    </div>
                     Show Students Enrollment Report
 
 

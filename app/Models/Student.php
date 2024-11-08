@@ -14,7 +14,7 @@ class Student extends Model
         'course_id', // Single course relationship
         'phone',
         'dob',
-        'profile_image_url'
+        'profile_image_url' // Ensure this is part of the fillable attributes
     ];
 
     // Enable automatic timestamps
@@ -26,16 +26,10 @@ class Student extends Model
         return $this->profile_image_url ? asset('storage/' . $this->profile_image_url) : null;
     }
 
-    // Uncomment if you need to access a single course via `course_id`
+    // Define the relationship with the Course model
     public function course()
     {
         return $this->belongsTo(Course::class, 'course_id');
     }
+}
 
-//     // Many-to-Many relationship between students and courses
-//     public function courses()
-//     {
-//         return $this->belongsToMany(Course::class)
-//                     ->withPivot('enrollment_date', 'status', 'grade');
-//     }
- }

@@ -14,12 +14,27 @@ class ReportController extends Controller
         $reports = Report::all();
         return view('backend.reports.index', compact('reports'));
     }
-
     public function create()
     {
-        $courses = Course::all();
+        // Fetch all courses with their students and filter students based on specific course associations
+        $courses = Course::with(['students' => function ($query) {
+            // Select specific fields from the students table
+            $query->select('students.id', 'students.name', 'students.email', 'students.profile_image_url')
+                  // Join the course_student table twice to get the students enrolled in specific courses
+                  ->join('course_student as cs1', 'students.id', '=', 'cs1.student_id')
+                  ->join('course_student as cs2', 'students.id', '=', 'cs2.student_id')
+                  // Filter students who are enrolled in course IDs 1, 2, 3, or 4
+                  ->whereIn('cs1.course_id', [1, 2, 3, 4])
+                  ->orWhereIn('cs2.course_id', [1, 2, 3, 4]);
+        }])->get();
+
+        // Pass the filtered courses and their students to the view
         return view('backend.reports.create', compact('courses'));
     }
+
+
+
+
 
     public function store(Request $request)
     {
@@ -48,7 +63,7 @@ class ReportController extends Controller
     public function edit($id)
     {
         $report = Report::findOrFail($id);
-        return view('reports.edit', compact('report'));
+        return view('backend.reports.edit', compact('report'));
     }
 
     public function update(Request $request, $id)

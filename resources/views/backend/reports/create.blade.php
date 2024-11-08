@@ -358,7 +358,6 @@
                                 </div>
                             </div>
 
-                            <!-- Form -->
                             <form action="{{ route('reports.store') }}" method="POST" id="reportForm">
                                 @csrf
 
@@ -382,12 +381,38 @@
                                     @enderror
                                 </div>
 
-                                <!-- Course ID -->
+                                <!-- Course Selection -->
                                 <div class="form-group">
-                                    <label for="course_id">Course ID</label>
-                                    <input type="number" name="course_id" id="course_id"
+                                    <label for="course_id">Course</label>
+                                    <select name="course_id" id="course_id"
                                         class="form-control @error('course_id') is-invalid @enderror" required>
+                                        <option value="">Select Course</option>
+                                        @foreach ($courses as $course)
+                                            <option value="{{ $course->id }}">{{ $course->name }}</option>
+                                        @endforeach
+                                    </select>
                                     @error('course_id')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <!-- Number of Students -->
+                                <div class="form-group">
+                                    <label for="number_of_students">Number of Students Enrolled</label>
+                                    <input type="number" name="number_of_students" id="number_of_students"
+                                        class="form-control @error('number_of_students') is-invalid @enderror" required
+                                        readonly>
+                                    @error('number_of_students')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <!-- Student Details -->
+                                <div class="form-group">
+                                    <label for="student_details">Student Details</label>
+                                    <textarea name="student_details" id="student_details" rows="5"
+                                        class="form-control @error('student_details') is-invalid @enderror" readonly></textarea>
+                                    @error('student_details')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -401,6 +426,59 @@
                                     <span id="loadingText" class="d-none">Generating...</span>
                                 </button>
                             </form>
+
+                            <script>
+                                // Use JavaScript to dynamically update number of students and student details
+                                document.getElementById('course_id').addEventListener('change', function() {
+                                    const courseId = this.value;
+
+                                    if (courseId) {
+                                        // Make an AJAX call to fetch students for the selected course
+                                        fetch(`/reports/students/${courseId}`)
+                                            .then(response => response.json())
+                                            .then(data => {
+                                                const numberOfStudents = data.students.length;
+                                                document.getElementById('number_of_students').value = numberOfStudents;
+
+                                                // Format student details
+                                                let studentDetails = '';
+                                                data.students.forEach(student => {
+                                                    const profileImage = student.profile_image_url ?
+                                                        `<img src="${student.profile_image_url}" alt="Profile Image" width="50" height="50">` :
+                                                        `<img src="/storage/profile_images/default.png" alt="Profile Image" width="50" height="50">`;
+
+                                                    studentDetails +=
+                                                        `<p>${student.name} (${student.email})</p>${profileImage}`;
+                                                });
+                                                document.getElementById('student_details').value = studentDetails;
+                                            });
+                                    } else {
+                                        document.getElementById('number_of_students').value = '';
+                                        document.getElementById('student_details').value = '';
+                                    }
+                                });
+                            </script>
+
+
+                            <script>
+                                // JavaScript to handle course selection
+                                document.getElementById('course_id').addEventListener('change', function() {
+                                    var selectedOption = this.options[this.selectedIndex];
+                                    var students = JSON.parse(selectedOption.getAttribute('data-students'));
+
+                                    // Update number of students
+                                    document.getElementById('number_of_students').value = students.length;
+
+                                    // Update student details
+                                    var studentDetails = students.map(function(student) {
+                                        return 'Name: ' + student.name + '\nEmail: ' + student.email;
+                                    }).join('\n\n');
+
+                                    document.getElementById('student_details').value = studentDetails;
+                                });
+                            </script>
+
+
 
                             <!-- JavaScript for Modal Display and Close -->
                             @if (session('success'))
@@ -436,18 +514,32 @@
 
     {{-- designing the notification --}}
     <script>
-        < script >
-            document.addEventListener("DOMContentLoaded", function() {
-                const notification = document.getElementById('starNotification');
+        // Add event listener to the course selection
+        document.getElementById('course_id').addEventListener('change', function() {
+            var courseId = this.value;
 
-                // Add the 'show' class to display the notification
-                notification.classList.add('show');
+            if (courseId) {
+                // Make AJAX request to fetch student details and number of students
+                fetch(`/get-student-details/${courseId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        // Update the number of students
+                        document.getElementById('number_of_students').value = data.number_of_students;
 
-                // Hide the notification after a few seconds
-                setTimeout(() => {
-                    notification.classList.remove('show');
-                }, 5000); // Adjust the timeout duration as needed
-            });
+                        // Update the student details (format them as needed)
+                        document.getElementById('student_details').value = data.student_details;
+                    })
+                    .catch(error => {
+                        console.error('Error fetching student details:', error);
+                    });
+            } else {
+                // Clear the fields if no course is selected
+                document.getElementById('number_of_students').value = '';
+                document.getElementById('student_details').value = '';
+            }
+        });
+    </script>
 
 
-    @endsection
+
+@endsection
