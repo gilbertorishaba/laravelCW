@@ -358,74 +358,53 @@
                                 </div>
                             </div>
 
-                            <form action="{{ route('reports.store') }}" method="POST" id="reportForm">
+                            <!-- backend/reports/create.blade.php -->
+                            <form action="{{ route('reports.store') }}" method="POST">
                                 @csrf
 
                                 <!-- Report Type -->
                                 <div class="form-group">
                                     <label for="report_type">Report Type</label>
-                                    <input type="text" name="report_type" id="report_type"
-                                        class="form-control @error('report_type') is-invalid @enderror" required>
-                                    @error('report_type')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
+                                    <input type="text" name="report_type" id="report_type" class="form-control"
+                                        required>
                                 </div>
 
                                 <!-- Generated At -->
                                 <div class="form-group">
                                     <label for="generated_at">Generated At</label>
-                                    <input type="date" name="generated_at" id="generated_at"
-                                        class="form-control @error('generated_at') is-invalid @enderror" required>
-                                    @error('generated_at')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
+                                    <input type="date" name="generated_at" id="generated_at" class="form-control"
+                                        required>
                                 </div>
 
-                                <!-- Course Selection -->
+                                <!-- Select Course -->
                                 <div class="form-group">
                                     <label for="course_id">Course</label>
-                                    <select name="course_id" id="course_id"
-                                        class="form-control @error('course_id') is-invalid @enderror" required>
-                                        <option value="">Select Course</option>
+                                    <select name="course_id" id="course_id" class="form-control" required>
+                                        <option value="" disabled selected>Select a Course</option>
                                         @foreach ($courses as $course)
-                                            <option value="{{ $course->id }}">{{ $course->name }}</option>
+                                            <option value="{{ $course->id }}">{{ $course->course_name }}</option>
                                         @endforeach
                                     </select>
-                                    @error('course_id')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
                                 </div>
 
-                                <!-- Number of Students -->
+                                <!-- Students List for the selected course -->
                                 <div class="form-group">
-                                    <label for="number_of_students">Number of Students Enrolled</label>
-                                    <input type="number" name="number_of_students" id="number_of_students"
-                                        class="form-control @error('number_of_students') is-invalid @enderror" required
-                                        readonly>
-                                    @error('number_of_students')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
+                                    <label for="students">Select Students</label>
+                                    <select name="students[]" id="students" class="form-control" multiple>
+                                        @foreach ($courses as $course)
+                                            <optgroup label="{{ $course->name }}">
+                                                @foreach ($course->students as $student)
+                                                    <option value="{{ $student->id }}">{{ $student->name }}</option>
+                                                @endforeach
+                                            </optgroup>
+                                        @endforeach
+                                    </select>
                                 </div>
-
-                                <!-- Student Details -->
-                                <div class="form-group">
-                                    <label for="student_details">Student Details</label>
-                                    <textarea name="student_details" id="student_details" rows="5"
-                                        class="form-control @error('student_details') is-invalid @enderror" readonly></textarea>
-                                    @error('student_details')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-
-                                <!-- Hidden Generated By (auto-filled) -->
-                                <input type="hidden" name="generated_by" value="{{ Auth::user()->name }}">
 
                                 <!-- Submit Button -->
-                                <button type="submit" class="btn btn-primary btn-block" id="submitBtn">
-                                    <span id="submitText">Generate Report</span>
-                                    <span id="loadingText" class="d-none">Generating...</span>
-                                </button>
+                                <button type="submit" class="btn btn-primary">Generate Report</button>
                             </form>
+
 
                             <script>
                                 // Use JavaScript to dynamically update number of students and student details
