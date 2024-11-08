@@ -106,8 +106,10 @@ Route::get('/', function () {
 
     Route::middleware(['auth', 'admin'])->group(function () {
         // AdminView all students enrolled in a course
-        Route::get('/admin/show', [EnrollmentController::class, 'viewEnrollments'])
-             ->name('admin.show');
+        Route::get('/admin/show/{course}', [EnrollmentController::class, 'show'])->name('admin.show');
+
+
+            //  Route::get('/admin/show/{course}', [EnrollmentController::class, 'show']);
 
         // Admin Enroll a student in a course
         Route::get('/admin/enroll', [EnrollmentController::class, 'showEnrollmentForm'])->name('admin.enroll');

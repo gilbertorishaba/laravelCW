@@ -73,29 +73,27 @@ class EnrollmentController extends Controller
         // return redirect()->route('admin.enroll')->with('success', 'Student enrolled successfully!');
     }
 
-    // Method to view enrollments for a particular course
-    public function viewEnrollments(Course $course)
-    {
-        // Check if the authenticated user is an admin
-        if (Auth::user()->is_admin !== 1) {
-            return redirect()->route('welcome')->with('error', 'Unauthorized access');
-        }
+ // In your Controller
+ public function show($course_id)
+ {
 
-        // Get all students enrolled in the course (using the relation defined in the Course model)
-        $students = $course->students;
-        $allStudents = Student::all();
 
-        // Pass all students to the view
-        return view('admin.show', compact('course', 'students', 'allStudents'));
-    }
+     // Get the course with enrolled students, including the pivot data
+     $course = Course::with('students')->find($course_id);
 
-    public function showEnrolledStudents($courseId)
-    {
-        // Get all students enrolled in the course with pivot data (enrollment_date, status, grade)
-        $students = $course->students()->withPivot('enrollment_date', 'status', 'grade')->get();
+     if (!$course) {
+         return redirect()->route('somewhere')->with('error', 'Course not found');
+     }
 
-        // Pass the course and its students to the view
-        return view('admin.show', compact('course', 'students'));
-    }
+     // Pass the course data to the view
+     return view('admin.show', compact('course'));
+ }
+
+
+
+
+
+
+
 
 }

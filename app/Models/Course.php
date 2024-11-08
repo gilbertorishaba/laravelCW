@@ -18,8 +18,10 @@ class Course extends Model
 // One-to-Many relationship with students (Each course has many students)
 public function students()
 {
-    return $this->hasMany(Student::class);
+    return $this->belongsToMany(Student::class)
+                ->withPivot('enrollment_date', 'status', 'grade');
 }
+
 
 }
 
