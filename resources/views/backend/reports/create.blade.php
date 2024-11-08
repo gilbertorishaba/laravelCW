@@ -4,20 +4,19 @@
         /* Customizing the body background and form styles */
         body {
             background-color: white;
-            /* White background for the whole page */
+
         }
 
         .card {
             background-color: white;
             border: 1px solid #007bff;
-            /* Blue border around the form card */
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            /* Soft shadow for depth */
+
         }
 
         .card-title {
             color: #007bff;
-            /* Blue title color */
+
         }
 
         .btn-primary {
@@ -28,9 +27,9 @@
 
         .btn-light {
             background-color: #f8f9fa;
-            /* Lighter background for the cancel button */
+
             color: #007bff;
-            /* Blue text for the cancel button */
+
         }
 
         .form-control {
@@ -48,13 +47,13 @@
 
         .page-title {
             color: #007bff;
-            /* Blue color for page title */
+
         }
 
 
-        /* existing styles */
 
-        /* styling the notification */
+
+
         .star-notification {
             position: fixed;
             top: 20px;
@@ -67,12 +66,12 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
             animation: pop 1s ease-in-out, rotate 2s linear infinite;
             display: none;
-            /* Start hidden */
+
         }
 
         .star-notification.show {
             display: block;
-            /* Show when it has the show class */
+
         }
 
         @keyframes pop {

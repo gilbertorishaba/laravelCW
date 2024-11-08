@@ -24,7 +24,7 @@
                             <div class="card card-statistics">
                                 <div class="card-body">
                                     <div class="d-flex flex-column flex-md-row align-items-center justify-content-between">
-                                        <!-- Additional statistics can be displayed here -->
+
                                     </div>
                                 </div>
                             </div>
@@ -123,25 +123,23 @@
 @endsection
 
 <style>
-    /* Ensuring the chart container takes full width and remains fixed in height */
     #enrollment-chart {
         width: 100% !important;
         height: 400px;
-        /* Fixed height */
+
     }
 
     .card-body {
         padding: 20px;
     }
 
-    /* Ensure that the card has a responsive height */
+
     .card {
         height: 100%;
     }
 
     .table-responsive {
         max-height: 400px;
-        /* Adjust as necessary */
         overflow-y: auto;
     }
 </style>
