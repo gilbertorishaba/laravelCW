@@ -12,7 +12,7 @@
                 <div id="settings-trigger"><i class="fas fa-fill-drip"></i></div>
                 <div id="theme-settings" class="settings-panel">
                     <i class="settings-close fa fa-times"></i>
-                    <p class="settings-heading">SIDEBAR SKINS</p>
+                    <p class="settings-heading">SIDEBAR COLOR THEMES</p>
                     <div class="sidebar-bg-options selected" id="sidebar-light-theme">
                         <div class="img-ss rounded-circle bg-light border mr-3"></div>Light
                     </div>
@@ -63,7 +63,7 @@
                                     <div class="form-check">
                                         <label class="form-check-label">
                                             <input class="checkbox" type="checkbox">
-                                            Team review meeting at 3.00 PM
+                                            University General Meeting at 3.00 PM
                                         </label>
                                     </div>
                                     <i class="remove fa fa-times-circle"></i>
@@ -72,7 +72,7 @@
                                     <div class="form-check">
                                         <label class="form-check-label">
                                             <input class="checkbox" type="checkbox">
-                                            Prepare for presentation
+                                            Presentation Presetation
                                         </label>
                                     </div>
                                     <i class="remove fa fa-times-circle"></i>
@@ -81,7 +81,7 @@
                                     <div class="form-check">
                                         <label class="form-check-label">
                                             <input class="checkbox" type="checkbox">
-                                            Resolve all the low priority tickets due today
+                                            Resolve Complaints of Students Payments
                                         </label>
                                     </div>
                                     <i class="remove fa fa-times-circle"></i>
@@ -109,7 +109,7 @@
                         <div class="events py-4 border-bottom px-3">
                             <div class="wrapper d-flex mb-2">
                                 <i class="fa fa-times-circle text-primary mr-2"></i>
-                                <span>Feb 11 2018</span>
+                                <span>Nov 11, 2024</span>
                             </div>
                             <p class="mb-0 font-weight-thin text-gray">Creating component page</p>
                             <p class="text-gray mb-0">build a js based app</p>
@@ -117,16 +117,16 @@
                         <div class="events pt-4 px-3">
                             <div class="wrapper d-flex mb-2">
                                 <i class="fa fa-times-circle text-primary mr-2"></i>
-                                <span>Feb 7 2018</span>
+                                <span>Nov 7, 2024 </span>
                             </div>
-                            <p class="mb-0 font-weight-thin text-gray">Meeting with Alisa</p>
-                            <p class="text-gray mb-0 ">Call Sarah Graves</p>
+                            <p class="mb-0 font-weight-thin text-gray">Meeting with Gilbert</p>
+                            <p class="text-gray mb-0 ">Call Gilbert Orishaba </p>
                         </div>
                     </div>
                     <!-- To do section tab ends -->
                     <div class="tab-pane fade" id="chats-section" role="tabpanel" aria-labelledby="chats-section">
                         <div class="d-flex align-items-center justify-content-between border-bottom">
-                            <p class="settings-heading border-top-0 mb-3 pl-3 pt-0 border-bottom-0 pb-0">Friends</p>
+                            <p class="settings-heading border-top-0 mb-3 pl-3 pt-0 border-bottom-0 pb-0">Students</p>
                             <small
                                 class="settings-heading border-top-0 mb-3 pt-0 border-bottom-0 pb-0 pr-3 font-weight-normal">See
                                 All</small>
@@ -136,7 +136,7 @@
                                 <div class="profile"><img src="images/faces/face1.jpg" alt="image"><span
                                         class="online"></span></div>
                                 <div class="info">
-                                    <p>Thomas Douglas</p>
+                                    <p>Gilbert Orishaba</p>
                                     <p>Available</p>
                                 </div>
                                 <small class="text-muted my-auto">19 min</small>
@@ -146,7 +146,7 @@
                                         class="offline"></span></div>
                                 <div class="info">
                                     <div class="wrapper d-flex">
-                                        <p>Catherine</p>
+                                        <p>Catherine Omoth</p>
                                     </div>
                                     <p>Away</p>
                                 </div>
@@ -157,7 +157,7 @@
                                 <div class="profile"><img src="images/faces/face3.jpg" alt="image"><span
                                         class="online"></span></div>
                                 <div class="info">
-                                    <p>Daniel Russell</p>
+                                    <p>Magumba Hassan</p>
                                     <p>Available</p>
                                 </div>
                                 <small class="text-muted my-auto">14 min</small>
@@ -166,7 +166,7 @@
                                 <div class="profile"><img src="images/faces/face4.jpg" alt="image"><span
                                         class="offline"></span></div>
                                 <div class="info">
-                                    <p>James Richardson</p>
+                                    <p>Ronnie</p>
                                     <p>Away</p>
                                 </div>
                                 <small class="text-muted my-auto">2 min</small>
@@ -175,7 +175,7 @@
                                 <div class="profile"><img src="images/faces/face5.jpg" alt="image"><span
                                         class="online"></span></div>
                                 <div class="info">
-                                    <p>Madeline Kennedy</p>
+                                    <p>Mugabo Keneth</p>
                                     <p>Available</p>
                                 </div>
                                 <small class="text-muted my-auto">5 min</small>

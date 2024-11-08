@@ -36,12 +36,14 @@ class CourseController extends Controller
 
 
     // Display all courses (list)
-    public function index()
-    {
-        // Use paginate() instead of all()
-        $courses = Course::paginate(10);
-        return view('backend.courses.index', compact('courses'));
-    }
+   // CourseController
+public function index()
+{
+    $courses = Course::paginate(10);
+    $error = session('error'); // Get the error message if available
+    return view('backend.courses.index', compact('courses', 'error'));
+}
+
 
     // Edit an existing course
     public function edit($id)

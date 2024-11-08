@@ -231,9 +231,9 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="courseEnrolled">Course Enrolled</label>
-                                            <input type="text" class="form-control" name="course_enrolled"
-                                                value="{{ $student->course_enrolled }}" readonly>
+                                            <label for="courseId">Course Id</label>
+                                            <input type="text" class="form-control" name="course_id"
+                                                value="{{ $student->course_id }}" readonly>
                                         </div>
 
                                         <div class="form-group">

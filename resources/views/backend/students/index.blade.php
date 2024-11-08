@@ -271,7 +271,7 @@
                                                             <th>Profile Image</th>
                                                             <th>Student Name</th>
                                                             <th>Email</th>
-                                                            <th>Course Enrolled</th>
+                                                            <th>Course Id</th>
                                                             <th>Date of Birth</th>
                                                             <th>Phone</th>
                                                         </tr>
@@ -289,7 +289,7 @@
                                                                 </td>
                                                                 <td>{{ $student->name }}</td>
                                                                 <td>{{ $student->email }}</td>
-                                                                <td>{{ $student->course_enrolled }}</td>
+                                                                <td>{{ $student->course_id }}</td>
                                                                 <td>{{ $student->dob }}</td>
                                                                 <td>{{ $student->phone }}</td>
                                                             </tr>

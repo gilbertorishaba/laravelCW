@@ -2,89 +2,85 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Enrollment;
+use App\Models\Student;
 use App\Models\Course;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EnrollmentController extends Controller
 {
-    // Display the enrollment index page
-    public function index()
+    // Method to show the enrollment form
+    public function showEnrollmentForm(Request $request)
     {
-        $enrollments = Enrollment::paginate(10);
-        $statistics = $this->getStatistics(); // fetch statistics
+        // Check if the authenticated user is an admin
+        if (Auth::user()->is_admin !== 1) {
+            return redirect()->route('welcome')->with('error', 'Unauthorized access');
+        }
 
-        return view('backend.enrollments.index', compact('enrollments', 'statistics'));
+        // Fetch the course based on the course ID passed in the request (e.g., ?course=1)
+        $courseId = $request->query('course');
+        $course = Course::findOrFail($courseId);
+
+        // Fetch all students to display in the enrollment form
+        $students = Student::all();
+
+        // Pass the course and students to the view
+        return view('admin.enroll', compact('course', 'students'));
     }
 
-    // Form for creating a new enrollment
-    public function create()
-    {
-        $courses = Course::all(); // Fetching the courses from the database
-        $userPoints = auth()->user()->points; // Assuming user points are stored in a user model
-        $badges = auth()->user()->badges; // Assuming badges are stored or calculated in user model
-
-        return view('backend.enrollments.create', compact('courses', 'userPoints', 'badges'));
-    }
-
-
-
-    // Store a newly created enrollment in storage
+    // Method to enroll a student in a course (POST request)
     public function store(Request $request)
     {
+        // Check if the authenticated user is an admin
+        if (Auth::user()->is_admin !== 1) {
+            return redirect()->route('welcome')->with('error', 'Unauthorized access');
+        }
+
+        // Validate the incoming data
         $request->validate([
-            'student_name' => 'required|string|max:255',
-            'course_enrolled' => 'required|exists:courses,id',  // Ensuring the selected course exists in the database
+            'name' => 'required',
+            'email' => 'required|email',
+            'course_id' => 'required|exists:courses,id',
             'enrollment_date' => 'required|date',
-            'status' => 'required|in:active,inactive',
+            'dob' => 'required|date',
+            'phone' => 'required',
+            'status' => 'required|string',
+            'grade' => 'nullable|string|max:10',
         ]);
 
-        Enrollment::create($request->all());
+        // Check if student already exists, if not, create a new one
+        $student = Student::firstOrNew(['email' => $request->email]);
+        $student->name = $request->name;
+        $student->dob = $request->dob;
+        $student->phone = $request->phone;
 
-        return redirect()->route('enrollments.index')->with('success', 'Enrollment created successfully.');
-    }
+        // Save the student information
+        $student->save();
 
-    // Show the form for editing the specified enrollment
-    public function edit(Enrollment $enrollment)
-    {
-        return view('backend.enrollments.edit', compact('enrollment'));
-    }
-
-    // Update the specified enrollment in storage
-    public function update(Request $request, Enrollment $enrollment)
-    {
-        $request->validate([
-            'student_name' => 'required|string|max:255',
-            'course_enrolled' => 'required|exists:courses,id',
-            'enrollment_date' => 'required|date|before_or_equal:today',
-            'status' => 'required|in:active,inactive',
+        // Enroll the student in the course
+        $student->courses()->attach($request->course_id, [
+            'enrollment_date' => $request->enrollment_date,
+            'status' => $request->status,
+            'grade' => $request->grade,
         ]);
 
-        $enrollment->update($request->all());
-
-        return redirect()->route('enrollments.index')->with('success', 'Enrollment updated successfully.');
+        // Redirect to the enroll page with success message
+        return redirect()->route('admin.enroll')->with('success', 'Student enrolled successfully!');
     }
 
-    // Remove the specified enrollment from storage
-    public function destroy(Enrollment $enrollment)
+    // Method to view enrollments for a particular course
+    public function viewEnrollments(Course $course)
     {
-        $enrollment->delete();
+        // Check if the authenticated user is an admin
+        if (Auth::user()->is_admin !== 1) {
+            return redirect()->route('welcome')->with('error', 'Unauthorized access');
+        }
 
-        return redirect()->route('enrollments.index')->with('success', 'Enrollment deleted successfully.');
-    }
+        // Get all students enrolled in the course (using the relation defined in the Course model)
+        $students = $course->students;
+        $allStudents = Student::all();
 
-    // Method to fetch statistics (example)
-    private function getStatistics()
-    {
-        return [
-            [
-                'title' => 'Total Enrollments',
-                'value' => Enrollment::count(),
-                'icon' => 'fas fa-users',
-                'badgeType' => 'primary',
-                'change' => '0',
-            ],
-            // Add other statistics as needed
-        ];
+        // Pass all students to the view
+        return view('admin.courses.students', compact('course', 'students', 'allStudents'));
     }
 }

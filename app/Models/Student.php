@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,18 +11,27 @@ class Student extends Model
     protected $fillable = [
         'name',
         'email',
-        'course_enrolled',
+        'course_id',
         'phone',
         'dob',
-        'profile_image_url' // Added profile_image_url to fillable array
+        'profile_image_url'
     ];
 
-    // Enable automatic timestamps (if you want to track created_at and updated_at)
-    public $timestamps = true; // Set this to false if you don't want timestamps
+    // Enable automatic timestamps
+    public $timestamps = true;
 
     // Accessor for profile image URL
     public function getProfileImageUrlAttribute()
     {
         return $this->profile_image_url ? asset('storage/' . $this->profile_image_url) : null;
     }
+
+    // Many-to-Many relationship between students and courses
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
+    }
+
+
+
 }

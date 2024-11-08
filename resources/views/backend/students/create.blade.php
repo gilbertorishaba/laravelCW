@@ -344,8 +344,8 @@
                                     </p>
                                     {{-- <form class="forms-sample" action="{{ route('student.store') }}" method="POST"> --}}
                                     {{-- ////to allow file uploads --}}
-                                    <form class="forms-sample" action="{{ route('students.store') }}"
-                                        method="POST"enctype="multipart/form-data">
+                                    <form class="forms-sample" action="{{ route('students.store') }}" method="POST"
+                                        enctype="multipart/form-data">
                                         @csrf
                                         {{-- bootstrap green alert color --}}
                                         @if (session('success'))
@@ -363,23 +363,68 @@
                                             <input type="email" class="form-control" id="studentInputEmail"
                                                 name="email" placeholder="Email" required>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="studentInputcourse">Course Enrolled</label>
-                                            <select class="form-control" name="course_enrolled" id="studentInputcourse"
+
+                                        {{-- working --}}
+                                        {{-- <div class="form-group">
+                                            <label for="studentInputcourse">Course</label>
+                                            <select class="form-control" name="course_id" id="studentInputcourse"
                                                 required>
                                                 <option value="">Select a Course</option>
-                                                <option value="bbc">Business Computing</option>
-                                                <option value="boim">Bachelor of Office Management</option>
-                                                <option value="computer_science">Computer Science</option>
-                                                <option value="software_engineering">Software Engineering</option>
-                                                <option value="bist">Bachelor of Information Systems and Technology
-                                                </option>
-                                                <option value="law">Bachelor of Laws</option>
-                                                <option value="bcom">Bachelor of Commerce</option>
-                                                <option value="blis">Bachelor of Library and Information Sciences
-                                                </option>
+                                                @foreach ($courses as $course)
+                                                    <option value="{{ $course->id }}"
+                                                        {{ isset($student) && $student->course_id == $course->id ? 'selected' : '' }}>
+                                                        {{ $course->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div> --}}
+
+                                        {{-- <div class="form-group">
+                                            <label for="studentInputcourse">Course</label>
+                                            <select class="form-control" name="course_id" id="studentInputcourse"
+                                                required>
+                                                <option value="">Select a Course</option>
+                                                @foreach ($courses as $course)
+                                                    <option value="{{ $course->id }}"
+                                                        {{ isset($student) && $student->course_id == $course->id ? 'selected' : '' }}>
+                                                        {{ $course->id }} - {{ $course->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div> --}}
+
+                                        {{-- <div class="form-group">
+                                            <label for="studentInputcourse">Course</label>
+                                            <select class="form-control" name="course_id" id="studentInputcourse"
+                                                required>
+                                                <option value="">Select a Course</option>
+                                                @foreach ($courses as $course)
+                                                    <option value="{{ $course->id }}"
+                                                        {{ old('course_id') == $course->id ? 'selected' : '' }}>
+                                                        {{ $course->id }} - {{ $course->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div> --}}
+
+                                        <div class="form-group">
+                                            <label for="studentInputcourse">Course</label>
+                                            <select class="form-control" name="course_id" id="studentInputcourse"
+                                                required>
+                                                <option value="">Select a Course</option>
+                                                @foreach ($courses as $course)
+                                                    <option value="{{ $course->id }}"
+                                                        {{ old('course_id') == $course->id ? 'selected' : '' }}>
+                                                        {{ $course->id }} - {{ $course->course_name }}
+                                                    </option>
+                                                @endforeach
                                             </select>
                                         </div>
+
+
+
+
+
 
                                         <div class="form-group">
                                             <label for="studentInputDob">Date of Birth</label>
@@ -402,6 +447,7 @@
                                         <button type="button" class="btn btn-light"
                                             onclick="window.location='{{ route('students.create') }}'">Cancel</button>
                                     </form>
+
 
                                 </div>
                             </div>

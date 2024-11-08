@@ -28,23 +28,18 @@ class ReportController extends Controller
     // Display the specified report
     public function store(Request $request)
     {
-        $request->validate([
-            'report_type' => 'required',
-            'report_title' => 'required',
-            'course_id' => 'required|integer',  // Validate that course_id is present and is an integer
-            'generated_by' => 'required',
+        // Validate the form inputs
+        $validatedData = $request->validate([
+            'report_type' => 'required|string|max:255',
+            'dob' => 'required|date',
+            'generated_by' => 'required|string|max:1000', // Ensuring 'generated_by' is required
         ]);
 
-        // Create the new report
-        Report::create([
-            'report_type' => $request->input('report_type'),
-            'report_title' => $request->input('report_title'),
-            'course_id' => $request->input('course_id'),  // Save the course_id
-            'generated_by' => $request->input('generated_by'),
-        ]);
+        // Store the report or perform any other action
 
-        return redirect()->route(' backend.reports.index')->with('success', 'Report created successfully!');
+        return redirect()->back()->with('success', 'Report generated successfully.');
     }
+
 
 
     // Show the form for editing the specified report

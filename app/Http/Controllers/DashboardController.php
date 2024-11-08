@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;  // Import the Course model
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -9,10 +10,19 @@ class DashboardController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  int  $courseId
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($courseId = null)
     {
+        // If a courseId is provided, fetch the course
+        if ($courseId) {
+            $course = Course::findOrFail($courseId);
+            // Pass the course to the 'admin.dashboard' view
+            return view('admin.dashboard', compact('course'));
+        }
+
+        // If no courseId is provided, return the general dashboard view
         return view('dashboard');
     }
 
@@ -34,7 +44,7 @@ class DashboardController extends Controller
      */
     public function store(Request $request)
     {
-        return view ('student.store');
+        return view('student.store');
     }
 
     /**
@@ -56,7 +66,7 @@ class DashboardController extends Controller
      */
     public function edit($id)
     {
-      return view('dashboard.index');
+        return view('dashboard.index');
     }
 
     /**

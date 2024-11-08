@@ -56,45 +56,32 @@
                                 <div class="card-body">
                                     <h4 class="card-title">Course Registration Form</h4>
                                     <p class="card-description">Fill out the details to create a new course</p>
-
                                     <form class="forms-sample" action="{{ route('courses.store') }}" method="POST">
                                         @csrf
 
-                                        {{-- //handle any errors associated with the form --}}
-                                        @if ($errors->any())
-                                            <div class="alert alert-danger">
-                                                <ul>
-                                                    @foreach ($errors->all() as $error)
-                                                        <li>{{ $error }}</li>
-                                                    @endforeach
-                                                </ul>
-                                            </div>
-                                        @endif
+                                        <div class="form-group">
+                                            <label for="courseName">Course Name</label>
+                                            <input type="text" class="form-control" id="courseName" name="course_name"
+                                                placeholder="Enter Course Name" required>
+                                        </div>
 
                                         <div class="form-group">
+                                            <label for="courseDescription">Description</label>
+                                            <textarea class="form-control" id="courseDescription" name="description" rows="4" placeholder="Course Description"
+                                                required></textarea>
+                                        </div>
 
+                                        <div class="form-group">
+                                            <label for="creditHours">Credit Hours</label>
+                                            <input type="number" class="form-control" id="creditHours" name="credit_hours"
+                                                placeholder="Credit Hours" required>
+                                        </div>
 
-                                            <div class="form-group">
-                                                <label for="courseName">Course Name</label>
-                                                <input type="text" class="form-control" id="courseName"
-                                                    name="course_name" placeholder="Enter Course Name" required>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="courseDescription">Description</label>
-                                                <textarea class="form-control" id="courseDescription" name="description" rows="4" placeholder="Course Description"
-                                                    required></textarea>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="creditHours">Credit Hours</label>
-                                                <input type="number" class="form-control" id="creditHours"
-                                                    name="credit_hours" placeholder="Credit Hours" required>
-                                            </div>
-
-                                            <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                                            <a href="{{ route('courses.index') }}" class="btn btn-light">Cancel</a>
+                                        <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                                        <a href="{{ route('courses.index') }}" class="btn btn-light">Cancel</a>
                                     </form>
+
+
                                 </div>
                             </div>
                         </div>

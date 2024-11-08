@@ -14,4 +14,12 @@ class Course extends Model
          'description',
         'credit_hours',
     ];
+
+// One-to-Many relationship with students (Each course has many students)
+public function students()
+{
+    return $this->hasMany(Student::class);
 }
+
+}
+
