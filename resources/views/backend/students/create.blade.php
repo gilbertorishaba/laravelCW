@@ -364,49 +364,6 @@
                                                 name="email" placeholder="Email" required>
                                         </div>
 
-                                        {{-- working --}}
-                                        {{-- <div class="form-group">
-                                            <label for="studentInputcourse">Course</label>
-                                            <select class="form-control" name="course_id" id="studentInputcourse"
-                                                required>
-                                                <option value="">Select a Course</option>
-                                                @foreach ($courses as $course)
-                                                    <option value="{{ $course->id }}"
-                                                        {{ isset($student) && $student->course_id == $course->id ? 'selected' : '' }}>
-                                                        {{ $course->name }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div> --}}
-
-                                        {{-- <div class="form-group">
-                                            <label for="studentInputcourse">Course</label>
-                                            <select class="form-control" name="course_id" id="studentInputcourse"
-                                                required>
-                                                <option value="">Select a Course</option>
-                                                @foreach ($courses as $course)
-                                                    <option value="{{ $course->id }}"
-                                                        {{ isset($student) && $student->course_id == $course->id ? 'selected' : '' }}>
-                                                        {{ $course->id }} - {{ $course->name }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div> --}}
-
-                                        {{-- <div class="form-group">
-                                            <label for="studentInputcourse">Course</label>
-                                            <select class="form-control" name="course_id" id="studentInputcourse"
-                                                required>
-                                                <option value="">Select a Course</option>
-                                                @foreach ($courses as $course)
-                                                    <option value="{{ $course->id }}"
-                                                        {{ old('course_id') == $course->id ? 'selected' : '' }}>
-                                                        {{ $course->id }} - {{ $course->name }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div> --}}
-
                                         <div class="form-group">
                                             <label for="studentInputcourse">Course</label>
                                             <select class="form-control" name="course_id" id="studentInputcourse"
@@ -420,11 +377,6 @@
                                                 @endforeach
                                             </select>
                                         </div>
-
-
-
-
-
 
                                         <div class="form-group">
                                             <label for="studentInputDob">Date of Birth</label>

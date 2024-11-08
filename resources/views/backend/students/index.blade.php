@@ -274,6 +274,7 @@
                                                             <th>Course Id</th>
                                                             <th>Date of Birth</th>
                                                             <th>Phone</th>
+                                                            <th>Actions</th> <!-- Added Actions Column -->
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -282,7 +283,8 @@
                                                                 <td>
                                                                     @if ($student->image)
                                                                         <img src="{{ asset('images/faces/face1.jpg') }}"
-                                                                            alt="Image from public directory">
+                                                                            alt="Image from public directory"
+                                                                            style="width: 50px; height: 50px;">
                                                                     @else
                                                                         <p>No image available</p>
                                                                     @endif
@@ -292,11 +294,29 @@
                                                                 <td>{{ $student->course_id }}</td>
                                                                 <td>{{ $student->dob }}</td>
                                                                 <td>{{ $student->phone }}</td>
+
+                                                                <!-- Added Action Buttons for Edit and Delete -->
+                                                                <td>
+                                                                    <!-- Edit Button -->
+                                                                    <a href="{{ route('students.edit', $student->id) }}"
+                                                                        class="btn btn-primary btn-sm">Edit</a>
+
+                                                                    <!-- Delete Button -->
+                                                                    <form
+                                                                        action="{{ route('students.destroy', $student->id) }}"
+                                                                        method="POST" style="display: inline;"
+                                                                        onsubmit="return confirm('Are you sure you want to delete this student?');">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <button type="submit"
+                                                                            class="btn btn-danger btn-sm">Delete</button>
+                                                                    </form>
+                                                                </td>
                                                             </tr>
                                                         @endforeach
                                                     </tbody>
-
                                                 </table>
+
                                             </div>
                                         </div>
                                     </div>

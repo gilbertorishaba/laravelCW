@@ -290,28 +290,31 @@
                                                 value="{{ old('email', $student->email) }}" required>
                                         </div>
 
+                                        <!-- Course Enrolled -->
                                         <div class="form-group">
-                                            <label for="studentInputCourseEnrolled">Course Enrolled</label>
+                                            <label for="course_enrolled">Course Enrolled</label>
                                             <input type="text" class="form-control" name="course_enrolled"
-                                                value="{{ $student->course_enrolled }}">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="studentInputDob">Date Of Birth</label>
-                                            <input type="number" class="form-control" name="dob"
-                                                value="{{ $student->dob }}">
-
+                                                value="{{ old('course_enrolled', $student->course_enrolled) }}">
                                         </div>
 
+                                        <!-- Date of Birth -->
                                         <div class="form-group">
-                                            <label for="studentInputPhone">Phone</label>
-                                            <input type="number" class="form-control" name="phone"
-                                                value="{{ $student->phone }}">
+                                            <label for="dob">Date Of Birth</label>
+                                            <input type="date" class="form-control" name="dob"
+                                                value="{{ old('dob', $student->dob) }}">
+                                        </div>
 
+                                        <!-- Phone -->
+                                        <div class="form-group">
+                                            <label for="phone">Phone</label>
+                                            <input type="tel" class="form-control" name="phone"
+                                                value="{{ old('phone', $student->phone) }}">
                                         </div>
 
                                         <!-- Submit Button -->
                                         <button type="submit" class="btn btn-primary">Update Student</button>
                                     </form>
+
                                 </div>
                             </div>
                         </div>

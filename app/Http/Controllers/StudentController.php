@@ -68,55 +68,55 @@ class StudentController extends Controller
     }
 
     // Show the form for editing a student
-    public function edit(Student $student)
+    public function edit($id)
     {
-        $courses = Course::all(); // Fetch all courses for the dropdown
-        return view('backend.students.edit', compact('student', 'courses'));
+        $student = Student::findOrFail($id);  // Fetch the student by ID
+        return view('backend.students.edit', compact('student'));
     }
 
-    // Update the student's information
-    public function update(Request $request, Student $student)
+
+
+
+    public function update(Request $request, $id)
     {
+        $student = Student::findOrFail($id);
+
         // Validate the incoming request
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255|unique:students,email,' . $student->id,
-            'course_id' => 'required|exists:courses,id',
-            'dob' => 'required|date',
-            'phone' => 'required|string|max:15',
-            'profile_image_url' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validate profile image
+            'email' => 'required|email|max:255|unique:students,email,' . $id, // Unique email validation except for the current student
+            'course_enrolled' => 'nullable|string|max:255',
+            'dob' => 'nullable|date',
+            'phone' => 'nullable|string|max:15',
         ]);
 
-        // Handle profile image update
-        if ($request->hasFile('profile_image_url')) {
-            // Delete the old image if it exists
-            if ($student->profile_image_url && Storage::disk('public')->exists($student->profile_image_url)) {
-                Storage::disk('public')->delete($student->profile_image_url);
-            }
-            // Store the new image
-            $imagePath = $request->file('profile_image_url')->store('images/students', 'public');
-            $student->profile_image_url = $imagePath;
-        }
+        // Update the student data
+        $student->update([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'course_enrolled' => $request->input('course_enrolled'),
+            'dob' => $request->input('dob'),
+            'phone' => $request->input('phone'),
+        ]);
 
-        // Update student information
-        $student->update($request->all());
-
-        // Redirect to the student list with a success message
-        return redirect()->route('students.index')->with('success', 'Student updated successfully.');
+        // Redirect back or to another page with a success message
+        return redirect()->route('students.index')->with('success', 'Student updated successfully!');
     }
+
 
     // Delete a student
-    public function destroy(Student $student)
+    public function destroy($id)
     {
-        // Delete the student's profile image if it exists
-        if ($student->profile_image_url && Storage::disk('public')->exists($student->profile_image_url)) {
-            Storage::disk('public')->delete($student->profile_image_url);
+        $student = Student::findOrFail($id);
+
+        // If the student has an image, delete it from storage (optional)
+        if ($student->image && file_exists(public_path('images/students/' . $student->image))) {
+            unlink(public_path('images/students/' . $student->image));
         }
 
-        // Delete the student record
         $student->delete();
 
-        // Redirect back with a success message
-        return redirect()->route('students.index')->with('success', 'Student deleted successfully.');
+        return redirect()->route('students.index')->with('success', 'Student deleted successfully');
     }
+
 }
