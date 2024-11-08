@@ -86,6 +86,16 @@ class EnrollmentController extends Controller
         $allStudents = Student::all();
 
         // Pass all students to the view
-        return view('admin.courses.students', compact('course', 'students', 'allStudents'));
+        return view('admin.show', compact('course', 'students', 'allStudents'));
     }
+
+    public function showEnrolledStudents($courseId)
+    {
+        // Get all students enrolled in the course with pivot data (enrollment_date, status, grade)
+        $students = $course->students()->withPivot('enrollment_date', 'status', 'grade')->get();
+
+        // Pass the course and its students to the view
+        return view('admin.show', compact('course', 'students'));
+    }
+
 }

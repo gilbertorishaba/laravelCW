@@ -98,7 +98,7 @@
 
                         <!-- View Enrolled Students -->
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('admin.courses.students', ['course' => 1]) }}">
+                        <a class="nav-link" href="{{ route('admin.show', ['course' => 1]) }}">
                             <i class="fa fa-users menu-icon"></i> View Enrolled Students
                         </a>
                     </li>
