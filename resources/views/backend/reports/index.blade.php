@@ -7,98 +7,6 @@
         <!-- partial -->
 
         <div class="container-fluid page-body-wrapper">
-            <!-- Theme Settings -->
-            <div class="theme-setting-wrapper">
-                <div id="settings-trigger"><i class="fas fa-fill-drip"></i></div>
-                <div id="theme-settings" class="settings-panel">
-                    <i class="settings-close fa fa-times"></i>
-                    <p class="settings-heading">SIDEBAR SKINS</p>
-                    <div class="sidebar-bg-options selected" id="sidebar-light-theme">
-                        <div class="img-ss rounded-circle bg-light border mr-3"></div>Light
-                    </div>
-                    <div class="sidebar-bg-options" id="sidebar-dark-theme">
-                        <div class="img-ss rounded-circle bg-dark border mr-3"></div>Dark
-                    </div>
-                    <p class="settings-heading mt-2">HEADER SKINS</p>
-                    <div class="color-tiles mx-0 px-4">
-                        <div class="tiles primary"></div>
-                        <div class="tiles success"></div>
-                        <div class="tiles warning"></div>
-                        <div class="tiles danger"></div>
-                        <div class="tiles info"></div>
-                        <div class="tiles dark"></div>
-                        <div class="tiles default"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Right Sidebar -->
-            <div id="right-sidebar" class="settings-panel">
-                <i class="settings-close fa fa-times"></i>
-                <ul class="nav nav-tabs" id="setting-panel" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" id="todo-tab" data-toggle="tab" href="#todo-section" role="tab"
-                            aria-controls="todo-section" aria-expanded="true">TO DO LIST</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="chats-tab" data-toggle="tab" href="#chats-section" role="tab"
-                            aria-controls="chats-section">CHATS</a>
-                    </li>
-                </ul>
-                <div class="tab-content" id="setting-content">
-                    <!-- To-do Section -->
-                    <div class="tab-pane fade show active scroll-wrapper" id="todo-section" role="tabpanel"
-                        aria-labelledby="todo-section">
-                        <div class="add-items d-flex px-3 mb-0">
-                            <form class="form w-100">
-                                <div class="form-group d-flex">
-                                    <input type="text" class="form-control todo-list-input" placeholder="Add To-do">
-                                    <button type="submit" class="add btn btn-primary todo-list-add-btn"
-                                        id="add-task-todo">Add</button>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="list-wrapper px-3">
-                            <ul class="d-flex flex-column-reverse todo-list">
-                                <!-- To-do items -->
-                                <li>
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input class="checkbox" type="checkbox"> Team review meeting at 3.00 PM
-                                        </label>
-                                    </div>
-                                    <i class="remove fa fa-times-circle"></i>
-                                </li>
-                                <!-- Add more to-do items here -->
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- Chats Section -->
-                    <div class="tab-pane fade" id="chats-section" role="tabpanel" aria-labelledby="chats-section">
-                        <div class="d-flex align-items-center justify-content-between border-bottom">
-                            <p class="settings-heading border-top-0 mb-3 pl-3 pt-0 border-bottom-0 pb-0">Friends</p>
-                            <small
-                                class="settings-heading border-top-0 mb-3 pt-0 border-bottom-0 pb-0 pr-3 font-weight-normal">See
-                                All</small>
-                        </div>
-                        <ul class="chat-list">
-                            <li class="list active">
-                                <div class="profile">
-                                    <img src="{{ asset('images/faces/face1.jpg') }}" alt="image"><span
-                                        class="online"></span>
-                                </div>
-                                <div class="info">
-                                    <p>Thomas Douglas</p>
-                                    <p>Available</p>
-                                </div>
-                                <small class="text-muted my-auto">19 min</small>
-                            </li>
-                            <!-- Add more chat users here -->
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
             <!-- Sidebar -->
             @include('backend.layouts.sidebar')
 
@@ -116,84 +24,56 @@
                             <div class="card card-statistics">
                                 <div class="card-body">
                                     <div class="d-flex flex-column flex-md-row align-items-center justify-content-between">
-                                        <div class="statistics-item">
-                                            <p><i class="icon-sm fa fa-user mr-2"></i>New users</p>
-                                            <h2>54000</h2>
-                                            <label class="badge badge-outline-success badge-pill">2.7% increase</label>
-                                        </div>
-                                        <div class="statistics-item">
-                                            <p><i class="icon-sm fas fa-hourglass-half mr-2"></i>Avg Time</p>
-                                            <h2>123.50</h2>
-                                            <label class="badge badge-outline-danger badge-pill">30% decrease</label>
-                                        </div>
-                                        <div class="statistics-item">
-                                            <p><i class="icon-sm fas fa-cloud-download-alt mr-2"></i>Downloads</p>
-                                            <h2>3500</h2>
-                                            <label class="badge badge-outline-success badge-pill">12% increase</label>
-                                        </div>
-                                        <!-- Add more statistics items -->
+                                        <!-- Additional statistics can be displayed here -->
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Charts Section -->
+                    <!-- Charts and Table Section -->
                     <div class="row">
+                        <!-- Number of Students Enrolled Chart -->
                         <div class="col-md-6 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title"><i class="fas fa-gift"></i> Orders</h4>
-                                    <canvas id="orders-chart"></canvas>
+                                    <h4 class="card-title"><i class="fas fa-users"></i> Students Enrolled in Courses</h4>
+                                    <canvas id="enrollment-chart"></canvas>
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Student Details Table -->
                         <div class="col-md-6 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title"><i class="fas fa-chart-line"></i> Sales</h4>
-                                    <h2 class="mb-5">56000 <span class="text-muted h4 font-weight-normal">Sales</span>
-                                    </h2>
-                                    <canvas id="sales-chart"></canvas>
+                                    <h4 class="card-title"><i class="fas fa-user-graduate"></i> Student Details</h4>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Course Enrolled</th>
+                                                    <th>Enrollment Date</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($students as $student)
+                                                    <tr>
+                                                        <td>{{ $student->name }}</td>
+                                                        <td>{{ $student->course->course_name }}</td>
+                                                        <td>{{ $student->created_at->format('d M, Y') }}</td>
+                                                    </tr>
+                                                    <!-- Assuming course relationship -->
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    Show Students Enrollment Report
-
-
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="table-responsive">
-                                <table id="order-listing" class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>Report Type</th>
-                                            <th>Generated At</th>
-                                            <th>Generated By</th>
-                                            <th>Course_id</th>
-
-
-
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($reports as $report)
-                                            <td>{{ $report->report_type }}</td>
-                                            <td>{{ $report->generated_at }}</td>
-                                            <td>{{ $report->generated_by }}</td>
-                                            <td>{{ $report->course_id }}</td>
-
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
-
 
                 </div>
 
@@ -203,3 +83,65 @@
         </div>
     </div>
 @endsection
+
+@section('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Chart for Students Enrolled
+        var ctx1 = document.getElementById('enrollment-chart').getContext('2d');
+        var enrollmentChart = new Chart(ctx1, {
+            type: 'bar',
+            data: {
+                labels: @json($courses), // Assuming you pass an array of course names
+                datasets: [{
+                    label: 'Number of Students',
+                    data: @json($enrollments), // Assuming you pass an array of student counts
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Chart for Student Details (Gender Ratio Example)
+        var ctx2 = document.getElementById('details-chart').getContext('2d');
+        var detailsChart = new Chart(ctx2, {
+            type: 'pie',
+            options: {
+                responsive: true,
+            }
+        });
+    </script>
+@endsection
+
+<style>
+    /* Ensuring the chart container takes full width and remains fixed in height */
+    #enrollment-chart {
+        width: 100% !important;
+        height: 400px;
+        /* Fixed height */
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    /* Ensure that the card has a responsive height */
+    .card {
+        height: 100%;
+    }
+
+    .table-responsive {
+        max-height: 400px;
+        /* Adjust as necessary */
+        overflow-y: auto;
+    }
+</style>

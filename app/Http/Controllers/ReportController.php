@@ -5,22 +5,31 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use App\Models\Report;
 use Illuminate\Http\Request;
+use App\Models\Student;
 use Auth;
 
 class ReportController extends Controller
 {
-    public function index()
-    {
-        $reports = Report::all();
-        return view('backend.reports.index', compact('reports'));
+    public function index() {
+        // Fetch student details like name, course, and any other relevant fields
+        $students = Student::select('name', 'course_id', 'created_at')->with('course')->get();
+
+        // Fetch the number of students enrolled in each course
+        $courses = Course::pluck('course_name');  // Get all course names
+        $enrollments = Course::withCount('students')->pluck('students_count');  // Count students per course
+
+        // Pass the data to the view
+        return view('backend.reports.index', compact('students', 'courses', 'enrollments'));
     }
+
+
+
     public function create()
     {
-        // Fetch all courses with their students and filter students based on specific course associations
+        //fetch all courses
         $courses = Course::with(['students' => function ($query) {
-            // Select specific fields from the students table
+            // specific fields from stu table
             $query->select('students.id', 'students.name', 'students.email', 'students.profile_image_url')
-                  // Join the course_student table twice to get the students enrolled in specific courses
                   ->join('course_student as cs1', 'students.id', '=', 'cs1.student_id')
                   ->join('course_student as cs2', 'students.id', '=', 'cs2.student_id')
                   // Filter students who are enrolled in course IDs 1, 2, 3, or 4
@@ -28,7 +37,7 @@ class ReportController extends Controller
                   ->orWhereIn('cs2.course_id', [1, 2, 3, 4]);
         }])->get();
 
-        // Pass the filtered courses and their students to the view
+
         return view('backend.reports.create', compact('courses'));
     }
 
