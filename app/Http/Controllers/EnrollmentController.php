@@ -58,11 +58,13 @@ class EnrollmentController extends Controller
         $student->save();
 
         // Enroll the student in the course
-        $student->courses()->attach($request->course_id, [
-            'enrollment_date' => $request->enrollment_date,
-            'status' => $request->status,
-            'grade' => $request->grade,
-        ]);
+      // Enroll the student in the course
+$student->course()->associate(Course::find($request->course_id)); // Associate course with the student
+$student->enrollment_date = $request->enrollment_date;
+$student->status = $request->status;
+$student->grade = $request->grade;
+$student->save();
+
 
         // Redirect to the enroll page with success message
         return redirect()->route('admin.enroll')->with('success', 'Student enrolled successfully!');

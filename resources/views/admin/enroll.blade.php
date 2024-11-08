@@ -120,7 +120,7 @@
                     @endif
 
                     <!-- Enrollment Form -->
-                    <form class="forms-sample" action="{{ route('admin.enroll') }}" method="POST"
+                    <form class="forms-sample" action="{{ route('admin.enroll.store') }}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
                         @if (session('success'))
