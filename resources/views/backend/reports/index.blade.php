@@ -178,7 +178,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($reports as $reports)
+                                        @foreach ($reports as $report)
                                             <td>{{ $report->report_type }}</td>
                                             <td>{{ $report->generated_at }}</td>
                                             <td>{{ $report->generated_by }}</td>

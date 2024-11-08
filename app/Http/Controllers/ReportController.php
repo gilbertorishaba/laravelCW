@@ -1,74 +1,74 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Course;
 use App\Models\Report;
 use Illuminate\Http\Request;
-use Auth; // Assuming you're using Laravel's built-in authentication
+use Auth;
 
 class ReportController extends Controller
 {
-    // Display a listing of the reports
     public function index()
     {
-        $reports = Report::all(); // Get all reports
-        return view(' backend.reports.index', compact('reports')); // Create a view to display reports
+        $reports = Report::all();
+        return view('backend.reports.index', compact('reports'));
     }
 
-    // Show the form for creating a new report
     public function create()
     {
-        $courses = Course::all(); // Fetch all courses to pass to the view
-
-        return view('backend.reports.create', compact('courses')); // Pass the courses variable to the view
+        $courses = Course::all();
+        return view('backend.reports.create', compact('courses'));
     }
 
-
-
-    // Display the specified report
     public function store(Request $request)
     {
         // Validate the form inputs
         $validatedData = $request->validate([
             'report_type' => 'required|string|max:255',
-            'dob' => 'required|date',
-            'generated_by' => 'required|string|max:1000', // Ensuring 'generated_by' is required
+            'generated_at' => 'required|date',
+            'course_id' => 'required|exists:courses,id',
         ]);
 
-        // Store the report or perform any other action
+        // Automatically set generated_by to the authenticated admin
+        $validatedData['generated_by'] = Auth::user()->name;
 
+        // Store the validated data in the database
+        Report::create([
+            'report_type' => $validatedData['report_type'],
+            'generated_at' => $validatedData['generated_at'],
+            'generated_by' => $validatedData['generated_by'],
+            'course_id' => $validatedData['course_id'],
+        ]);
+
+        // Redirect back with a success message
         return redirect()->back()->with('success', 'Report generated successfully.');
     }
 
-
-
-    // Show the form for editing the specified report
     public function edit($id)
     {
-        $report = Report::findOrFail($id); // Find the report by ID
-        return view('reports.edit', compact('report')); // Create a view for the report edit form
+        $report = Report::findOrFail($id);
+        return view('reports.edit', compact('report'));
     }
 
-    // Update the specified report in storage
     public function update(Request $request, $id)
     {
         $request->validate([
             'report_type' => 'required|string|max:255',
         ]);
 
-        $report = Report::findOrFail($id); // Find the report by ID
+        $report = Report::findOrFail($id);
         $report->update([
             'report_type' => $request->input('report_type'),
         ]);
 
-        return redirect()->route(' backend.reports.index')->with('success', 'Report updated successfully.');
+        return redirect()->route('backend.reports.index')->with('success', 'Report updated successfully.');
     }
 
-    // Remove the specified report from storage
     public function destroy($id)
     {
-        $report = Report::findOrFail($id); // Find the report by ID
-        $report->delete(); // Delete the report
+        $report = Report::findOrFail($id);
+        $report->delete();
 
         return redirect()->route('backend.reports.index')->with('success', 'Report deleted successfully.');
     }

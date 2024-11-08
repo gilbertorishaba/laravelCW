@@ -15,7 +15,6 @@
                     <h1>Enrolled Students</h1>
                     <h2>Students Enrolled in Courses</h2>
 
-
                     <table class="table">
                         <thead>
                             <tr>
@@ -29,14 +28,17 @@
                             </tr>
                         </thead>
                         <tbody>
+
+                            {{-- populate data from Database --}}
                             @foreach ($course->students as $student)
                                 <tr>
-                                    <td>{{ $course->name }}</td> <!-- Course name -->
-                                    <td>{{ $student->name }}</td> <!-- Student's name -->
-                                    <td>{{ $student->email }}</td> <!-- Student's email -->
-                                    <td>{{ $student->phone }}</td> <!-- Student's phone -->
+                                    <td>{{ $course->name }}</td>
+                                    <td>{{ $student->name }}</td>
+                                    <td>{{ $student->email }}</td>
+                                    <td>{{ $student->phone }}</td>
+                                    {{-- enrollment_date from pivot tble  --}}
                                     <td>{{ \Carbon\Carbon::parse($student->pivot->enrollment_date)->format('d-m-Y') }}
-                                    </td> <!-- Enrollment date -->
+                                    </td>
                                     <td>{{ ucfirst($student->pivot->status) }}</td>
                                     <!-- Enrollment status -->
                                     <td>{{ $student->pivot->grade ?? 'N/A' }}</td> <!-- Student's grade -->
@@ -44,8 +46,6 @@
                             @endforeach
                         </tbody>
                     </table>
-
-
                 </div>
 
                 <!-- Footer -->
